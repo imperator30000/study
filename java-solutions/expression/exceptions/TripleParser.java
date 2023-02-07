@@ -1,4 +1,4 @@
-package expression.parser;
+package expression.exceptions;
 
 import expression.TripleExpression;
 
@@ -7,5 +7,5 @@ import expression.TripleExpression;
  */
 @FunctionalInterface
 public interface TripleParser {
-    TripleExpression parse(String expression);
+    TripleExpression parse(String expression) throws Exception;
 }

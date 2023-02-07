@@ -14,6 +14,6 @@ public class TaskElement<T> {
 
     @Override
     public String toString() {
-        return value.toString();
+        return type.toString();
     }
 }
