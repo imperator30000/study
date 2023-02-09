@@ -145,15 +145,19 @@ public class ExpressionParser implements TripleParser {
 
 
     public static void slt(String x, String minMax) {
+        if (x.length() < minMax.length()){
+            return;
+        }
         if (x.length() == minMax.length()) {
             for (int i = 0; i < x.length(); i++) {
                 if (x.charAt(i) > minMax.charAt(i)) {
-                    throw new OverflowExceptions(x);
-                } else if (x.charAt(i) < minMax.charAt(i)) {
                     break;
+                } else if (x.charAt(i) < minMax.charAt(i)) {
+                    return;
                 }
             }
         }
+        throw new OverflowExceptions(x);
     }
 
     public static int iter(int i, String task, char l, char r) {
@@ -249,7 +253,7 @@ public class ExpressionParser implements TripleParser {
         Scanner sc = new Scanner(System.in);
         ExpressionParser e = new ExpressionParser();
 //        e.parse("-2147483647 * -1");
-        System.out.println(e.parse("0"));
+        System.out.println(e.parse("-(2)"));
 //        for (int i = 0; i < 11; i++) {
 //            try {
 //                System.out.println(e.parse("y *").evaluate(1046457733, -1830650320, 1598611754));
