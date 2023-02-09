@@ -9,9 +9,10 @@ public class CheckedAdd extends Add {
         super(operand1, operand2);
     }
     protected int solve(int x, int y){
-        if (x > Integer.MAX_VALUE - y && y > 0 || x < Integer.MIN_VALUE - y && y < 0){
-            throw new OverflowExceptions(x + super.getActionChar() + y);
+        if (!(x > Integer.MAX_VALUE - y && y > 0 || x < Integer.MIN_VALUE - y && y < 0)){
+            return super.solve(x, y);
         }
-        return super.solve(x, y);
+        throw new OverflowExceptions(x + super.getActionChar() + y);
+
     }
 }

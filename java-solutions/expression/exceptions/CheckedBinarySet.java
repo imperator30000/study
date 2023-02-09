@@ -8,9 +8,11 @@ public class CheckedBinarySet extends BinarySet {
         super(operand1, operand2);
     }
     protected int solve(int x, int y){
-        if (y >= 31){
-            throw new OverflowExceptions("y == " + y);
+        if (y < 31){
+            return super.solve(x, y);
+
         }
-        return super.solve(x, y);
+        throw new OverflowExceptions("y == " + y);
+
     }
 }

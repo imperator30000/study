@@ -15,9 +15,11 @@ public class CheckedDivide extends Divide {
 //        if (x == 0){
 //            throw new DivisionByZeroExceptions("x == 0");
 //        }
-        if (x == Integer.MIN_VALUE && y == -1) {
-            throw new OverflowExceptions(x + super.getActionChar() + y);
+
+        if (!(x == Integer.MIN_VALUE && y == -1)) {
+            return super.solve(x, y);
         }
-        return super.solve(x, y);
+        throw new OverflowExceptions(x + super.getActionChar() + y);
+
     }
 }

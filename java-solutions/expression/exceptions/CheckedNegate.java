@@ -8,9 +8,10 @@ public class CheckedNegate extends UnarySubtract {
         super(el);
     }
     protected int solve(int x){
-        if (x == Integer.MIN_VALUE){
-            throw new OverflowExceptions("x == " + x);
+        if (x != Integer.MIN_VALUE){
+            return super.solve(x);
         }
-        return super.solve(x);
+        throw new OverflowExceptions("x == " + x);
+
     }
 }

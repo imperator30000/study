@@ -12,6 +12,7 @@ public class ExpressionParser implements TripleParser {
 
 
     static int kur = -1;
+    int count = 0;
     static Set<TaskElementType> BinaryOperations = Set.of(
             TaskElementType.ACTION_ADD,
             TaskElementType.ACTION_SUBTRACT,
@@ -22,22 +23,16 @@ public class ExpressionParser implements TripleParser {
             TaskElementType.ACTION_SET,
             TaskElementType.ACTION_CLEAR);
 
-    static Set<TaskElementType> Operands = Set.of(TaskElementType.VARIABLE, TaskElementType.CONST);
-    static Map<String, TaskElementType> actions = new HashMap<>() {{
-        put("+", TaskElementType.ACTION_ADD);
-        put("-", TaskElementType.ACTION_SUBTRACT);
-        put("*", TaskElementType.ACTION_MULTIPLY);
-        put("/", TaskElementType.ACTION_DIVIDE);
-        put("(", TaskElementType.BRACKET_LEFT);
-        put(")", TaskElementType.BRACKET_RIGHT);
-        put("x", TaskElementType.VARIABLE);
-        put("y", TaskElementType.VARIABLE);
-        put("z", TaskElementType.VARIABLE);
-        put("min", TaskElementType.ACTION_MIN);
-        put("max", TaskElementType.ACTION_MAX);
-        put("set", TaskElementType.ACTION_SET);
-        put("clear", TaskElementType.ACTION_CLEAR);
-    }};
+
+    static Map<String, TaskElementType> actions = new HashMap<>();
+
+//    "min", TaskElementType.ACTION_MIN,
+//            "max", TaskElementType.ACTION_MAX,
+//            "set", TaskElementType.ACTION_SET,
+//            "clear", TaskElementType.ACTION_CLEAR
+//            new HashMap<>() {{
+//
+//            }};
 
 
     public static AllExpression priority1(ArrayList<TaskElement> taskElements) {
@@ -58,16 +53,15 @@ public class ExpressionParser implements TripleParser {
             } else if (!BinaryOperations.contains(taskElement.type) && taskElement.type != TaskElementType.BRACKET_RIGHT) {
                 if (taskElement.type == TaskElementType.BRACKET_LEFT) {
                     left = priority4(taskElements);
-
                 }
                 kur++;
                 if (left != null) {
                     return left;
                 }
-                throw new ParserExceptions("");
+                throw new ParserExceptions("Dot`t search left operand");
 
             } else {
-                throw new ParserExceptions("");
+                throw new ParserExceptions("index " + kur + " : Аn operand or left or unary action parenthesis was expected");
             }
         }
 
@@ -87,7 +81,7 @@ public class ExpressionParser implements TripleParser {
                 kur--;
                 return left;
             } else {
-                throw new ParserExceptions(" ");
+                throw new ParserExceptions("index " + kur + " : Аn action was expected");
             }
         }
     }
@@ -106,7 +100,7 @@ public class ExpressionParser implements TripleParser {
                 kur--;
                 return left;
             } else {
-                throw new ParserExceptions(" ");
+                throw new ParserExceptions("index " + kur + " : Аn action was expected");
             }
         }
     }
@@ -131,7 +125,7 @@ public class ExpressionParser implements TripleParser {
                 kur--;
                 return left;
             } else {
-                throw new ParserExceptions(" ");
+                throw new ParserExceptions("index " + kur + " : Аn action was expected");
             }
         }
     }
@@ -151,17 +145,10 @@ public class ExpressionParser implements TripleParser {
 
 
     public static void slt(String x, String minMax) {
-//        if (x.equals(minMax)){
-//            return;
-//        }
-//        if (x.length() < minMax.length()){
-//            return;
-//        }
         if (x.length() == minMax.length()) {
             for (int i = 0; i < x.length(); i++) {
                 if (x.charAt(i) > minMax.charAt(i)) {
                     throw new OverflowExceptions(x);
-
                 } else if (x.charAt(i) < minMax.charAt(i)) {
                     break;
                 }
@@ -169,9 +156,39 @@ public class ExpressionParser implements TripleParser {
         }
     }
 
+    public static int iter(int i, String task, char l, char r) {
+        int finish = i;
+        int el;
+        while (true) {
+            el = task.charAt(finish);
+            if (el > r || el < l) {
+                finish--;
+                break;
+            }
+            finish++;
+            if (finish >= task.length()) {
+                finish--;
+                break;
+            }
+        }
+        return finish;
+    }
+
     public static ArrayList<TaskElement> lexAnalysis(String task) {
+        actions.put("+", TaskElementType.ACTION_ADD);
+                actions.put("-", TaskElementType.ACTION_SUBTRACT);
+                actions.put("*", TaskElementType.ACTION_MULTIPLY);
+                actions.put("/", TaskElementType.ACTION_DIVIDE);
+                actions.put("(", TaskElementType.BRACKET_LEFT);
+                actions.put(")", TaskElementType.BRACKET_RIGHT);
+                actions.put("x", TaskElementType.VARIABLE);
+                actions.put("y", TaskElementType.VARIABLE);
+                actions.put("z", TaskElementType.VARIABLE);
+                actions.put("min", TaskElementType.ACTION_MIN);
+                actions.put("max", TaskElementType.ACTION_MAX);
+                actions.put("set", TaskElementType.ACTION_SET);
+                actions.put("clear", TaskElementType.ACTION_CLEAR);
         int balance = 0;
-        int operandsCounter = 0;
         ArrayList<TaskElement> taskElements = new ArrayList<>();
         boolean wasSpace = false;
         for (int i = 0; i < task.length(); ) {
@@ -187,19 +204,7 @@ public class ExpressionParser implements TripleParser {
             if (taskElementType == TaskElementType.NONE) {
                 if (el <= '9' && el >= '0') {
                     taskElementType = TaskElementType.CONST;
-                    int finish = i;
-                    while (true) {
-                        el = task.charAt(finish);
-                        if (el > '9' || el < '0') {
-                            finish--;
-                            break;
-                        }
-                        finish++;
-                        if (finish >= task.length()) {
-                            finish--;
-                            break;
-                        }
-                    }
+                    int finish = iter(i, task, '0', '9');
                     if (taskElements.size() > 0 && taskElements.get(taskElements.size() - 1).type == TaskElementType.ACTION_UNARY_SUBTRACT && !wasSpace) {
                         slt(task.substring(i, finish + 1), "2147483648");
                         taskElements.set(taskElements.size() - 1, new TaskElement<>(TaskElementType.CONST, Integer.parseInt('-' + task.substring(i, finish + 1))));
@@ -210,41 +215,28 @@ public class ExpressionParser implements TripleParser {
                     }
                     i = finish;
                 } else if (el >= 'a' && el <= 'z') {
-                    int finish = i;
-                    while (true) {
-                        el = task.charAt(finish);
-                        if (el > 'z' || el < 'a') {
-                            finish--;
-                            break;
-                        }
-                        finish++;
-                        if (finish >= task.length()) {
-                            finish--;
-                            break;
-                        }
-                    }
-
+                    int finish = iter(i, task, 'a', 'z');
                     taskElementType = actions.getOrDefault(task.substring(i, finish + 1), TaskElementType.NONE);
                     if (BinaryOperations.contains(taskElementType) && (i > 0 && task.charAt(i - 1) >= '0' && task.charAt(i - 1) <= '9'
-                            || finish < task.length() - 1 && task.charAt(finish + 1) >= '0' && task.charAt(finish + 1) <= '9')){
-                        throw new ParserExceptions("");
+                            || finish < task.length() - 1 && task.charAt(finish + 1) >= '0' && task.charAt(finish + 1) <= '9')) {
+                        throw new UnknownSymbolExceptions("You have to put a space between " + task.substring(i, finish + 1) + " and operands");
                     }
                     taskElements.add(new TaskElement<>(taskElementType, task.substring(i, finish + 1)));
                     if (taskElementType == TaskElementType.NONE) {
                         throw new UnknownSymbolExceptions(taskElements.get(taskElements.size() - 1).value.toString());
                     }
                     i = finish;
-                } else if (!Character.isWhitespace(el)) {
+                } else if (Character.isWhitespace(el)) {
+                    wasSpace = true;
+                } else {
                     throw new UnknownSymbolExceptions(String.valueOf(el));
                 }
             } else {
+                wasSpace = false;
                 taskElements.add(new TaskElement<>(taskElementType, el));
             }
-            wasSpace = false;
+
             i++;
-            if (taskElementType == TaskElementType.NONE) {
-                wasSpace = true;
-            }
         }
         taskElements.add(new TaskElement<>(TaskElementType.END, '\n'));
         if (balance != 0) {
@@ -257,7 +249,7 @@ public class ExpressionParser implements TripleParser {
         Scanner sc = new Scanner(System.in);
         ExpressionParser e = new ExpressionParser();
 //        e.parse("-2147483647 * -1");
-        System.out.println(e.parse("x"));
+        System.out.println(e.parse("0"));
 //        for (int i = 0; i < 11; i++) {
 //            try {
 //                System.out.println(e.parse("y *").evaluate(1046457733, -1830650320, 1598611754));
@@ -270,8 +262,10 @@ public class ExpressionParser implements TripleParser {
 
     @Override
     public TripleExpression parse(String expression) {
-//        System.out.println(expression);
+//        System.err.println(expression);
         kur = -1;
+
+
         ArrayList<TaskElement> list = lexAnalysis(expression);
         AllExpression ans = priority4(list);
 //        System.out.println(list);

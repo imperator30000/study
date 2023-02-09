@@ -10,11 +10,11 @@ public class CheckedMultiply extends Multiply {
 
     protected int solve(int x, int y) {
         int cur = x * y;
-        if (x != 0 && cur / x != y || y != 0 && cur / y != x) {
-            throw new OverflowExceptions(x + super.getActionChar() + y);
-        }
-        return super.solve(x, y);
-    }
+        if (!(x != 0 && cur / x != y || y != 0 && cur / y != x)) {
+            return super.solve(x, y);
 
+        }
+        throw new OverflowExceptions(x + super.getActionChar() + y);
+    }
 
 }
