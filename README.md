@@ -1,2 +1,1 @@
-# study
-password: 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
+
