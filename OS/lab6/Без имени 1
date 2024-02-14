@@ -1,0 +1,45 @@
+1 эксперимент
+последовательно
+./experiment.sh 1ex_1processor_sequentially.log sequentially.sh
+график
+python3 make_gr.py 1ex_1processor_sequentially.log
+параллельно
+./experiment.sh 1ex_1processor_parallel.log parallel.sh
+график
+python3 make_gr.py 1ex_1processor_parallel.log
+
+2 эксперимент
+последовательно
+./experiment.sh 2ex_2processor_sequentially.log sequentially.sh
+график
+python3 make_gr.py 2ex_2processor_sequentially.log
+параллельно
+./experiment.sh 2ex_2processor_parallel.log parallel.sh
+график
+python3 make_gr.py 2ex_2processor_parallel.log
+
+
+
+
+
+
+
+1 эксперимент
+последовательно
+./experiment2.sh 1ex_1processor_sequentially_handler.log sequentially2.sh
+график
+python3 make_gr.py 1ex_1processor_sequentially_handler.log
+параллельно
+./experiment2.sh 1ex_1processor_parallel_handler.log parallel2.sh
+график
+python3 make_gr.py 1ex_1processor_parallel_handler.log
+
+2 эксперимент
+последовательно
+./experiment2.sh 2ex_2processor_sequentially_handler.log sequentially2.sh
+график
+python3 make_gr.py 2ex_2processor_sequentially_handler.log
+параллельно
+./experiment2.sh 2ex_2processor_parallel_handler.log parallel2.sh
+график
+python3 make_gr.py 2ex_2processor_parallel_handler.log

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+log=$1
+script=$2
+echo "" > $log
+
+for (( n=1; n<=20; n++ )); do
+	echo "$n : " >> $log
+	for (( i=0; i<10; i++ )); do
+		./gen.sh $n 20000
+		{ \time -f "%E" ./$script $n; } 1>>.trash 2>>$log
+	done
+done
