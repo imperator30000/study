@@ -1,0 +1,362 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.37.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           hw5
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/hw5#readme>
+homepage:       https://github.com/githubuser/hw5#readme
+bug-reports:    https://github.com/githubuser/hw5/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2023 Author name here
+license:        BSD3
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/hw5
+
+library
+  exposed-modules:
+      HW5.Action
+      HW5.Base
+      HW5.Evaluator
+      HW5.Parser
+      HW5.Pretty
+  other-modules:
+      Paths_hw5
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Werror -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , containers
+    , directory
+    , megaparsec
+    , mtl
+    , parser-combinators
+    , prettyprinter
+    , prettyprinter-ansi-terminal
+    , random
+    , scientific
+    , serialise
+    , text
+    , time >=1.11
+    , transformers >=0.5 && <0.7
+    , zlib
+  default-language: Haskell2010
+
+executable hi
+  main-is: Main.hs
+  other-modules:
+      Paths_hw5
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Werror -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , directory
+    , haskeline
+    , hw5
+    , megaparsec
+    , mtl
+    , parser-combinators
+    , prettyprinter
+    , prettyprinter-ansi-terminal
+    , random
+    , scientific
+    , serialise
+    , text
+    , time >=1.11
+    , transformers >=0.5 && <0.7
+    , zlib
+  default-language: Haskell2010
+
+test-suite hw5-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      TestTH
+      Paths_hw5
+  hs-source-dirs:
+      test
+      test/utils
+  ghc-options: -Wall -Werror -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -Wwarn
+  build-depends:
+      QuickCheck
+    , base >=4.7 && <5
+    , bytestring
+    , containers
+    , directory
+    , haskeline
+    , hspec
+    , hw5
+    , megaparsec
+    , mtl
+    , parser-combinators
+    , prettyprinter
+    , prettyprinter-ansi-terminal
+    , random
+    , scientific
+    , serialise
+    , template-haskell
+    , text >=1.2
+    , time >=1.11
+    , transformers >=0.5 && <0.7
+    , zlib
+  default-language: Haskell2010
+
+test-suite task1
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      TestTH
+      Paths_hw5
+  hs-source-dirs:
+      test/task1
+      test/utils
+  ghc-options: -Wall -Werror -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -Wwarn
+  build-depends:
+      base >=4.7 && <5
+    , hspec
+    , hw5
+    , mtl
+    , prettyprinter
+    , prettyprinter-ansi-terminal
+    , template-haskell
+  default-language: Haskell2010
+
+test-suite task10
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      TestTH
+      Paths_hw5
+  hs-source-dirs:
+      test/task10
+      test/utils
+  ghc-options: -Wall -Werror -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -Wwarn
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , containers
+    , directory
+    , hspec
+    , hw5
+    , mtl
+    , prettyprinter
+    , prettyprinter-ansi-terminal
+    , template-haskell
+    , text
+    , time
+  default-language: Haskell2010
+
+test-suite task11
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      TestTH
+      Paths_hw5
+  hs-source-dirs:
+      test/task11
+      test/utils
+  ghc-options: -Wall -Werror -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -Wwarn
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , containers
+    , directory
+    , hspec
+    , hw5
+    , mtl
+    , prettyprinter
+    , prettyprinter-ansi-terminal
+    , template-haskell
+    , text
+    , time
+  default-language: Haskell2010
+
+test-suite task2
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      TestTH
+      Paths_hw5
+  hs-source-dirs:
+      test/task2
+      test/utils
+  ghc-options: -Wall -Werror -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -Wwarn
+  build-depends:
+      base >=4.7 && <5
+    , hspec
+    , hw5
+    , mtl
+    , prettyprinter
+    , prettyprinter-ansi-terminal
+    , template-haskell
+  default-language: Haskell2010
+
+test-suite task3
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      TestTH
+      Paths_hw5
+  hs-source-dirs:
+      test/task3
+      test/utils
+  ghc-options: -Wall -Werror -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -Wwarn
+  build-depends:
+      base >=4.7 && <5
+    , hspec
+    , hw5
+    , mtl
+    , prettyprinter
+    , prettyprinter-ansi-terminal
+    , template-haskell
+  default-language: Haskell2010
+
+test-suite task4
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      TestTH
+      Paths_hw5
+  hs-source-dirs:
+      test/task4
+      test/utils
+  ghc-options: -Wall -Werror -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -Wwarn
+  build-depends:
+      base >=4.7 && <5
+    , hspec
+    , hw5
+    , mtl
+    , prettyprinter
+    , prettyprinter-ansi-terminal
+    , template-haskell
+    , text
+  default-language: Haskell2010
+
+test-suite task5
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      TestTH
+      Paths_hw5
+  hs-source-dirs:
+      test/task5
+      test/utils
+  ghc-options: -Wall -Werror -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -Wwarn
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , hspec
+    , hw5
+    , mtl
+    , prettyprinter
+    , prettyprinter-ansi-terminal
+    , template-haskell
+    , text
+  default-language: Haskell2010
+
+test-suite task6
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      TestTH
+      Paths_hw5
+  hs-source-dirs:
+      test/task6
+      test/utils
+  ghc-options: -Wall -Werror -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -Wwarn
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , containers
+    , hspec
+    , hw5
+    , mtl
+    , prettyprinter
+    , prettyprinter-ansi-terminal
+    , template-haskell
+    , text
+  default-language: Haskell2010
+
+test-suite task7
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      TestTH
+      Paths_hw5
+  hs-source-dirs:
+      test/task7
+      test/utils
+  ghc-options: -Wall -Werror -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -Wwarn
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , containers
+    , directory
+    , hspec
+    , hw5
+    , mtl
+    , prettyprinter
+    , prettyprinter-ansi-terminal
+    , template-haskell
+    , text
+  default-language: Haskell2010
+
+test-suite task8
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      TestTH
+      Paths_hw5
+  hs-source-dirs:
+      test/task8
+      test/utils
+  ghc-options: -Wall -Werror -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -Wwarn
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , containers
+    , directory
+    , hspec
+    , hw5
+    , mtl
+    , prettyprinter
+    , prettyprinter-ansi-terminal
+    , template-haskell
+    , text
+    , time
+  default-language: Haskell2010
+
+test-suite task9
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      TestTH
+      Paths_hw5
+  hs-source-dirs:
+      test/task9
+      test/utils
+  ghc-options: -Wall -Werror -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -Wwarn
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , containers
+    , directory
+    , hspec
+    , hw5
+    , mtl
+    , prettyprinter
+    , prettyprinter-ansi-terminal
+    , template-haskell
+    , text
+    , time
+  default-language: Haskell2010
