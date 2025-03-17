@@ -9,7 +9,7 @@ import Data.Void (Void)
 type Not a = a -> Void
 
 doubleNeg :: a -> Not (Not a)
-doubleNeg = undefined
+doubleNeg x f = f x
 
 reduceTripleNeg :: Not (Not (Not a)) -> Not a
-reduceTripleNeg = undefined
+reduceTripleNeg f x = f (\g -> g x)

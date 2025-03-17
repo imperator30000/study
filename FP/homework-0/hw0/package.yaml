@@ -45,13 +45,39 @@ executables:
     dependencies:
     - hw0
 
+    
+
 tests:
-  hw0-test:
+  # hw0-test:
+  #   main:                Spec.hs
+  #   source-dirs:         test
+  #   ghc-options:
+  #   - -threaded
+  #   - -rtsopts
+  #   - -with-rtsopts=-N
+  #   - -fno-warn-unused-top-binds
+  #   - -Wunused-top-binds
+  #   - -Wunused-do-bind
+  #   - -Wno-unused-top-binds
+  #   - -Wno-type-defaults
+  #   - -Wno-missing-signatures
+  #   dependencies:
+  #   - hw0
+  #   - HUnit
+  t1:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    - -fno-warn-unused-top-binds
+    - -Wunused-top-binds
+    - -Wunused-do-bind
+    - -Wno-unused-top-binds
+    - -Wno-type-defaults
+    - -Wno-missing-signatures
     dependencies:
     - hw0
+    - hspec
+

@@ -13,24 +13,21 @@ import Numeric.Natural
 type Nat a = (a -> a) -> a -> a
 
 nz :: Nat a
-nz = undefined
+nz _ x = x
 
 ns :: Nat a -> Nat a
-ns = undefined
+ns n f x = f (n f x)
 
 nplus :: Nat a -> Nat a -> Nat a
-nplus = undefined
+nplus n m f x = n f (m f x)
 
 nmult :: Nat a -> Nat a -> Nat a
-nmult = undefined
+nmult n m f = n (m f)
 
 nFromNatural :: Natural -> Nat a
-nFromNatural = undefined
+nFromNatural 0 = nz
+nFromNatural n = ns (nFromNatural (n - 1))
 
--- Uncomment this function signature to implement this function.
--- The correct signature is commented to avoid compilation failure
--- with '-Werror' in the template project.
---
--- nToNum :: Num a => Nat a -> a
-nToNum :: Nat a -> a
-nToNum = undefined
+
+nToNum :: Num a => Nat a -> a
+nToNum n = n (+1) 0

@@ -7,26 +7,26 @@ module HW0.T3
   , s
   ) where
 
--- S
+-- S = S
 s :: (a -> b -> c) -> (a -> b) -> (a -> c)
-s = undefined
+s f g x = f x (g x)
 
--- K
+-- K = K
 k :: a -> b -> a
-k = undefined
+k x _ = x
 
--- I
+-- I = S K K
 i :: a -> a
-i = undefined
+i = s k k
 
--- B
+-- B = S (K S) K
 compose :: (b -> c) -> (a -> b) -> (a -> c)
-compose = undefined
+compose = s (k s) k
 
--- W
+-- W = S S (S K) = C S I
 contract :: (a -> a -> b) -> (a -> b)
-contract = undefined
+contract = permute s i
 
--- C
+-- C = S (S (K (S (K S) K)) S) (K K) = S (B B S) (K K)
 permute :: (a -> b -> c) -> (b -> a -> c)
-permute = undefined
+permute = s (compose compose s) (k k)

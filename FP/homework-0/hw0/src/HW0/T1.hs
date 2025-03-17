@@ -12,16 +12,28 @@ module HW0.T1
 data a <-> b = Iso (a -> b) (b -> a)
 
 distrib :: Either a (b, c) -> (Either a b, Either a c)
-distrib = undefined
+distrib (Left a)        = (Left a, Left a)
+distrib (Right (b, c))  = (Right b, Right c)  
 
 flipIso :: (a <-> b) -> (b <-> a)
-flipIso = undefined
+flipIso (Iso f g) = Iso g f
 
 runIso :: (a <-> b) -> (a -> b)
-runIso = undefined
+runIso (Iso f _) = f
 
 assocPair :: (a, (b, c)) <-> ((a, b), c)
-assocPair = undefined
+assocPair = Iso to from
+  where
+    to (a, (b, c))   = ((a, b), c)
+    from ((a, b), c) = (a, (b, c)) 
 
 assocEither :: Either a (Either b c) <-> Either (Either a b) c
-assocEither = undefined
+assocEither = Iso to from
+  where
+    to (Left a)            = Left (Left a)
+    to (Right (Left b))    = Left (Right b)
+    to (Right (Right c))   = Right c
+
+    from (Left (Left a))   = Left a
+    from (Left (Right b))  = Right (Left b)
+    from (Right c)         = Right (Right c) 
